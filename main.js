@@ -20,6 +20,42 @@ function drawPokemon(pokemon) {
     const pokemonContainerDOM = document.createElement('div');
     pokemonContainerDOM.classList.add('pokemon-card__container'); //General class
     pokemonContainerDOM.setAttribute('data-name', pokemon.name); //pokemon-specific class
+    pokemonContainerDOM.addEventListener('click', e => {
+        //creation of clone card
+        const cardDOM = document.querySelector(`[data-name="${pokemon.name}"]`);
+        //Create a deep clone of selected card
+        const cardDOMCopy = cardDOM.cloneNode(true);
+        pokedexContainer.style = 'display:none;'
+        document.body.appendChild(cardDOMCopy);
+
+        //added back button
+        const buttonBack = document.createElement('button');
+        buttonBack.textContent = 'back';
+        buttonBack.classList.add('button__back');
+        cardDOMCopy.insertAdjacentElement('beforebegin',buttonBack);
+
+        //event listener back button
+        buttonBack.addEventListener('click', () => {
+            pokedexContainer.style = 'display:flex;';
+            cardDOMCopy.style = 'display:none;'
+            buttonBack.style.display = 'none'; //to revert the behavior of the button to the original state
+        })
+
+        //same events single-chosen card
+        cardDOMCopy.addEventListener('mouseenter', e => { //added card flip on mouseenter
+            pokemonImgBackDOM.style.display = 'inline';
+            pokemonImgBackDOM.style.alignSelf = 'center';
+            pokemonImgFrontDOM.style.display = 'none';
+
+        })
+        cardDOMCopy.addEventListener('mouseleave', e => { //added card flip on mouseleave
+            pokemonImgBackDOM.style.display = 'none';
+            pokemonImgFrontDOM.style.alignSelf = 'center';
+            pokemonImgFrontDOM.style.display = 'inline';
+        })
+    })
+
+
 
     pokemonContainerDOM.addEventListener('mouseenter', e => { //added card flip on mouseenter
         pokemonImgBackDOM.style.display = 'inline';
@@ -32,6 +68,7 @@ function drawPokemon(pokemon) {
         pokemonImgFrontDOM.style.alignSelf = 'center';
         pokemonImgFrontDOM.style.display = 'inline';
     })
+
 
     const pokemonImgContainerDOM = document.createElement('div');
 
@@ -120,4 +157,3 @@ limitOffsetDOM.addEventListener('submit', e => {
     return retrievePokemonList(limit, offset);
 })
 
-document.querySelector('[data-name, pokemon.name]')

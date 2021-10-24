@@ -84,3 +84,13 @@ body{
     margin-top: 0.5em;
     list-style-type: none;
 }
+
+.button__back{
+    background-color: #6DD1D9;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    border:whitesmoke 0.5em solid;
+    align-self: right;
+
+}
